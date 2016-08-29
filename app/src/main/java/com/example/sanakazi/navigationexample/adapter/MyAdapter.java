@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sanakazi.navigationexample.R;
 
@@ -28,6 +29,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String name;        //String Resource for header View Name
     private int profile;        //int Resource for header view profile picture
     private String email;       //String Resource for header view email
+    Context context;
+
 
 
     // Creating a ViewHolder which extends the RecyclerView View Holder
@@ -71,8 +74,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
 
-   public MyAdapter(String Titles[],int Icons[],String Name,String Email, int Profile){ // MyAdapter Constructor with titles and icons parameter
+   public MyAdapter(Context context,String Titles[],int Icons[],String Name,String Email, int Profile){ // MyAdapter Constructor with titles and icons parameter
         // titles, icons, name, email, profile pic are passed from the main activity as we
+        this.context=context;
         mNavTitles = Titles;                //have seen earlier
         mIcons = Icons;
         name = Name;
@@ -121,11 +125,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Tells us item at which position is being constructed to be displayed and the holder id of the holder object tell us
     // which view type is being created 1 for item row
     @Override
-    public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyAdapter.ViewHolder holder, final int position) {
         if(holder.Holderid ==1) {                              // as the list view is going to be called after the header view so we decrement the
             // position by 1 and pass it to the holder while setting the text and image
             holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
             holder.imageView.setImageResource(mIcons[position -1]);// Settimg the image with array of our icons
+
+            holder.textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("you clicked at position" , position + " ");
+                    Toast.makeText(context," you clicked at position " + position , Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
         else{
 

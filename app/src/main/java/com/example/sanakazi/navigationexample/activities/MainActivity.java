@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.sanakazi.navigationexample.R;
 import com.example.sanakazi.navigationexample.adapter.MyAdapter;
 
+import java.util.ArrayList;
+
 public class MainActivity extends ActionBarActivity {
 
     //First We Declare Titles And Icons For Our Navigation Drawer List View
@@ -61,7 +63,9 @@ public class MainActivity extends ActionBarActivity {
 
         mRecyclerView.setHasFixedSize(true);                            // Letting the system know that the list objects are of fixed size
 
-        mAdapter = new MyAdapter(TITLES,ICONS,NAME,EMAIL,PROFILE);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
+        ArrayList<String> arrayList;
+
+        mAdapter = new MyAdapter(MainActivity.this,TITLES,ICONS,NAME,EMAIL,PROFILE);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
         // And passing the titles,icons,header view name, header view email,
         // and header view profile picture
 
@@ -93,6 +97,8 @@ public class MainActivity extends ActionBarActivity {
         }; // Drawer Toggle Object Made
         Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
+
+
 
 
     }
